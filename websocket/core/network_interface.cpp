@@ -10,6 +10,7 @@
 #include <map>
 #include "debug_log.h"
 #include "network_interface.h"
+#include "test.h"
 
 Network_Interface *Network_Interface::m_network_interface = NULL;
 
@@ -28,6 +29,7 @@ Network_Interface::~Network_Interface(){
 
 int Network_Interface::init(){
 	listenfd_ = socket(AF_INET, SOCK_STREAM, 0);
+	DEBUG_LOG("listenfd:%d\n",listenfd_);
 	if(listenfd_ == -1){
 		DEBUG_LOG("创建套接字失败!");
 		return -1;
@@ -62,6 +64,7 @@ int Network_Interface::epoll_loop(){
 	while(true){
 		nfds = epoll_wait(epollfd_, events, MAXEVENTSSIZE, TIMEWAIT);
 		for(int i = 0; i < nfds; i++){
+			printf("[%d] %s\n",events[i].data.fd,getEpollEvnetName(events[i].events).c_str());
 			if(events[i].data.fd == listenfd_){
 				fd = accept(listenfd_, (struct sockaddr *)&client_addr, &clilen);
 				ctl_event(fd, true);

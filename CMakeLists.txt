@@ -52,6 +52,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 aux_source_directory(./websocket SRC_LIST)
 aux_source_directory(./websocket/tools SRC_LIST)
 aux_source_directory(./websocket/core SRC_LIST)
+aux_source_directory(./websocket/test SRC_LIST)
 
 message("=======================================")
 message("项目源文件列表")
@@ -64,6 +65,7 @@ message("---------------------------------------")
 include_directories(./websocket)
 include_directories(./websocket/tools)
 include_directories(./websocket/core)
+include_directories(./websocket/test)
 
 # 库搜索路径(可多组)
 # Specify directories in which the linker will look for libraries.
